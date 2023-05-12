@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root to: "application#index"
+  post "/", to: "graphql#execute"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :users, except: %i[index]
+  resources :notes
+
+  namespace :auth do
+    post "/login", to: "sessions#login"
+    delete "/logout", to: "sessions#logout"
+  end
 end
