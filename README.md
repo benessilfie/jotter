@@ -16,7 +16,7 @@ rails
 sqlite
 ```
 
-### Setting up a development environment
+### Setting up locally
 
 #### Step 1: Clone the repository
 
@@ -30,7 +30,7 @@ or with Github CLI
 gh repo clone benessilfie/jotter
 ```
 
-#### Step 2: Run Bundle install
+#### Step 2: Install gems
 
 ```
 bundle install
