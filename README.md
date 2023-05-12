@@ -62,31 +62,341 @@ rspec
 
 ## Documentation
 
-You can either go to the interactive postman documentation at `http://localhost:3000/docs` or use the api testing tool of your choice with the API documentation below.
-
 ## REST API
 
 The REST API follows a traditional RESTful architecture and uses HTTP verbs to interact with resources. It supports the following endpoints:
 
 ### User Endpoints
 
+##### 1. Get User
+
 - `GET /users/:id` - Get a specific user by ID
+
+- `Headers` - `{Authorization: 'Bearer <token>'}`
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+  "data": {
+    "id": "integer",
+    "type": "string",
+    "attributes": {
+      "email": "string",
+      "role": "string",
+      "created_at": "dateTime",
+      "updated_at": "dateTime"
+    },
+    "relationships": {
+      "notes": {
+        "data": []
+      }
+    }
+  },
+  "included": []
+}
+```
+
+##### 2. Create User
+
 - `POST /users` - Create a new user account
+
+**Request Body**
+
+```json
+{
+  "email": "string",
+  "password": "string",
+  "password confirmation": "string",
+  "role": "string"
+}
+```
+
+**Response**
+
+`201 - Created`
+
+```json
+{
+  "data": {
+    "id": "integer",
+    "type": "string",
+    "attributes": {
+      "email": "string",
+      "role": "string",
+      "created_at": "dateTime",
+      "updated_at": "dateTime"
+    },
+    "relationships": {
+      "notes": {
+        "data": []
+      }
+    }
+  }
+}
+```
+
+##### 3. Update User
+
 - `PUT /users/:id` - Update a specific user by ID
+
+- `Headers` - `{Authorization: 'Bearer <token>'}`
+
+**Request Body**
+
+```json
+{
+  "email": "string",
+  "role": "string"
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+  "data": {
+    "id": "integer",
+    "type": "string",
+    "attributes": {
+      "email": "string",
+      "role": "string",
+      "created_at": "dateTime",
+      "updated_at": "dateTime"
+    },
+    "relationships": {
+      "notes": {
+        "data": []
+      }
+    }
+  }
+}
+```
+
 - `DELETE /users/:id` - Delete a specific user by ID
+
+##### 4. Delete User
+
+- `PUT /users/:id` - Update a specific user by ID
+
+- `Headers` - `{Authorization: 'Bearer <token>'}`
+
+**Response**
+
+`204 - No Content`
 
 ### Notes Endpoints
 
+##### 1. Get All Notes
+
 - `GET /notes` - Get a list of all notes
+
+- `Headers` - `{Authorization: 'Bearer <token>'}`
+
+**Response** (with at least a note, otherwise an empty array `[]`)
+`200 - OK`
+
+```json
+{
+    "data": [
+        {
+            "id": "integer",
+            "type": "string",
+            "attributes": {
+                "title": "string",
+                "content": "string",
+                "published": boolean,
+                "created_at": "dateTime",
+                "updated_at": "dateTime"
+            },
+            "relationships": {
+                "user": {
+                    "data": {
+                        "id": "integer",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
+##### 2. Create Note
+
 - `POST /notes` - Create a new note
+
+- `Headers` - `{Authorization: 'Bearer <token>'}`
+
+**Request Body**
+
+```json
+{
+    "title": "string",
+    "content": "string",
+    "published": boolean
+
+}
+```
+
+**Response**
+
+`201 - Created`
+
+```json
+{
+    "data": [
+        {
+            "id": "integer",
+            "type": "string",
+            "attributes": {
+                "title": "string",
+                "content": "string",
+                "published": boolean,
+                "created_at": "dateTime",
+                "updated_at": "dateTime"
+            },
+            "relationships": {
+                "user": {
+                    "data": {
+                        "id": "integer",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
+##### 3. Get Note
+
 - `GET /notes/:id` - Get a specific note by ID
+
+- `Headers` - `{Authorization: 'Bearer <token>'}`
+
+**Response** (with at least a note, otherwise `404 Not Found`)
+
+`200 - OK`
+
+```json
+{
+    "data": [
+        {
+            "id": "integer",
+            "type": "string",
+            "attributes": {
+                "title": "string",
+                "content": "string",
+                "published": boolean,
+                "created_at": "dateTime",
+                "updated_at": "dateTime"
+            },
+            "relationships": {
+                "user": {
+                    "data": {
+                        "id": "integer",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
+##### 4. Update Note
+
 - `PUT /notes/:id` - Update a specific note by ID
+
+- `Headers` - `{Authorization: 'Bearer <token>'}`
+
+**Request Body**
+
+```json
+{
+    "title": "string",
+    "content": "string",
+    "published": boolean
+
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+    "data": [
+        {
+            "id": "integer",
+            "type": "string",
+            "attributes": {
+                "title": "string",
+                "content": "string",
+                "published": boolean,
+                "created_at": "dateTime",
+                "updated_at": "dateTime"
+            },
+            "relationships": {
+                "user": {
+                    "data": {
+                        "id": "integer",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
+##### 5. Delete Note
+
 - `DELETE /notes/:id` - Delete a specific note by ID
+
+- `Headers` - `{Authorization: 'Bearer <token>'}`
+
+**Response**
+`204 - No Content`
 
 ### Session
 
+##### 1. Login
+
 - `POST /auth/login` - Log in with an existing user account
+
+**Request Body**
+
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+**Response**
+`200 - OK`
+
+```json
+{
+  "token": "JWT Token"
+}
+```
+
+##### 2. Logout
+
 - `DELETE /auth/logout` - Log out of an existing user account
+
+- `Headers` - `{Authorization: 'Bearer <token>'}`
+
+**Response**
+`204 - No Content`
 
 ### User Roles
 
@@ -98,33 +408,395 @@ You can specify a user's role during account creation by setting the `role` colu
 
 The GraphQL API provides a more flexible and efficient way to query and mutate data. It supports the following types and operations:
 
-#### Types
+### Types
 
 - `Note` - represents a single note
 - `User` - represents a user account
-- `RoleEnum` - represents the two values `member` and `admin` to assign user roles
+- `RoleEnum` - `member` or `admin`, represents the two roles a user can be assigned
 
-#### Operations
+### Operations
 
-`Query`
+#### `Query`
+
+##### 1. Fetch User Profile
 
 - `Profile` - fetches the profile of the current logged in user
+
+**Request Body**
+
+- `Headers` - `{Authorization: '<token>'}`
+
+```json
+query {
+  profile {
+    id
+    email
+    role
+    createdAt
+    updatedAt
+  }
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+    "data": {
+        "profile": {
+            "id": "integer",
+            "email": "string",
+            "role": roleEnum,
+            "createdAt": "dateTime",
+            "updatedAt": "dateTime"
+        }
+    }
+}
+```
+
+##### 2. View Note
+
 - `ViewNote` - fetches a specific note by ID
+
+**Request Body**
+
+- `Headers` - `{Authorization: '<token>'}`
+
+```json
+query {
+    viewNote(id: integer) {
+        id
+        title
+        content
+        published
+        user {
+            email
+            role
+        }
+    }
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+    "data": {
+        "viewNote": {
+            "id": integer,
+            "title": "string",
+            "content": "string",
+            "published": boolean,
+            "user": {
+                "email": "string",
+                "role": roleEnum
+            }
+        }
+    }
+}
+```
+
+##### 2. View All Notes
+
 - `ViewNotes` - fetches a list of all notes of the current logged in user
 
-`Mutation`
+**Request Body**
 
-`User
+- `Headers` - `{Authorization: '<token>'}`
+
+```json
+query {
+    viewNotes {
+        id
+        title
+        content
+        published
+        user {
+            email
+            role
+        }
+    }
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+    "data": {
+        "viewNotes": [
+            {
+                "id": integer,
+                "title": "string",
+                "content": "string",
+                "published": boolean,
+                "user": {
+                    "email": "string",
+                    "role": roleEnum
+                }
+            }
+        ]
+    }
+}
+```
+
+### `Mutation`
+
+#### `User
+
+##### 1. Create User
 
 - `createUser` - creates a new user account
+
+**Request Body**
+
+```json
+mutation {
+    createUser(input: {
+        email: "string"
+        password: "string"
+        role: roleEnum
+    }) {
+        user {
+            email
+            role
+        }
+    }
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+    "data": {
+        "createUser": {
+            "user": {
+                "email": "string",
+                "role": roleEnum
+            }
+        }
+    }
+}
+```
+
+##### 2. Update User
+
 - `updateUser` - updates an existing user account
+
+- `Headers` - `{Authorization: '<token>'}`
+
+**Request Body**
+
+```json
+mutation {
+    updateUser(input: {
+        email: "string"
+        role: roleEnum
+    }) {
+        user {
+            email
+            role
+        }
+    }
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+    "data": {
+        "createUser": {
+            "user": {
+                "email": "string",
+                "role": roleEnum
+            }
+        }
+    }
+}
+```
+
+##### 3. Delete User
+
 - `deleteUser` - deletes a specific logged in user (requires `user password`)
 
-`Note`
+- `Headers` - `{Authorization: '<token>'}`
+
+**Request Body**
+
+```json
+mutation {
+    deleteUser(input: {
+        password: "string"
+    }) {
+        message
+    }
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+  "data": {
+    "deleteUser": {
+      "message": "string"
+    }
+  }
+}
+```
+
+#### `Note`
+
+##### 1. Create Note
 
 - `createNote` - creates a new note
+
+- `Headers` - `{Authorization: '<token>'}`
+
+**Request Body**
+
+```json
+mutation {
+    createNote(input: {
+        title: "string"
+        content: "string"
+        published: boolean
+    }) {
+        note {
+            title
+            content
+            published
+            user {
+                id
+                email
+                role
+            }
+        }
+    }
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+    "data": {
+        "createNote": {
+            "note": {
+                "title": "string",
+                "content": "string",
+                "published": boolean,
+                "user": {
+                    "id": "integer",
+                    "email": "string",
+                    "role": roleEnum
+                }
+            }
+        }
+    }
+}
+```
+
+##### 2. Update Note
+
 - `updateNote` - updates a specific note by ID
+
+- `Headers` - `{Authorization: '<token>'}`
+
+**Request Body**
+
+```json
+mutation {
+    updateNote(input: {
+        id: integer
+        title: "string"
+        content: "string"
+        published: boolean
+    }) {
+        note {
+            title
+            content
+            published
+            user {
+                id
+                email
+                role
+            }
+        }
+    }
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+    "data": {
+        "updateNote": {
+            "note": {
+                "title": "string",
+                "content": "string",
+                "published": boolean,
+                "user": {
+                    "id": "integer",
+                    "email": "string",
+                    "role": roleEnum
+                }
+            }
+        }
+    }
+}
+```
+
+##### 3. Delete Note
+
 - `deleteNote` - deletes a specific note by ID
+
+- `Headers` - `{Authorization: '<token>'}`
+
+**Request Body**
+
+```json
+mutation {
+    deleteNote(input: {
+        id: note
+    }) {
+        message
+    }
+}
+```
+
+**Response**
+
+`200 - OK`
+
+```json
+{
+  "data": {
+    "deleteNote": {
+      "message": "string"
+    }
+  }
+}
+```
 
 ## Data Schema
 
@@ -138,7 +810,7 @@ Both APIs use the same data schema to represent notes and users. The schema is a
   "title": "string",
   "content": "string",
   "published": boolean,
-  "userId": "string",
+  "userId": integer,
   "createdAt": DateTime,
   "updatedAt": DateTime
 }
@@ -151,14 +823,14 @@ Both APIs use the same data schema to represent notes and users. The schema is a
   "id": "string",
   "email": "string",
   "password": "string",
-  "role": Integer, // default: 1, default role is member
+  "role": integer, // default: 1, default role is member
   "authToken": "string",
   "createdAt": DateTime,
   "updatedAt": DateTime
 }
 ```
 
-### Examples
+### Example
 
 #### Creating a user account (REST API)
 
@@ -246,4 +918,4 @@ mutation {
 
 ## Author
 
-[Benjamin Essilfie Quansah](https://www.github.com/benessilfie/)
+[Benjamin Essilfie Quansah](https://www.linkedin.com/in/benessilfie/)
