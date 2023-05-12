@@ -49,7 +49,7 @@ rails db:migrate
 #### Step 4: start the server
 
 ```
-rails start
+rails server
 ```
 
 #### Step 5: Running the Tests
