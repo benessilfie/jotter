@@ -198,6 +198,7 @@ The REST API follows a traditional RESTful architecture and uses HTTP verbs to i
 - `Headers` - `{Authorization: 'Bearer <token>'}`
 
 **Response** (with at least a note, otherwise an empty array `[]`)
+
 `200 - OK`
 
 ```json
@@ -918,4 +919,4 @@ mutation {
 
 ## Author
 
-[Benjamin Essilfie Quansah](https://www.linkedin.com/in/benessilfie/)
+[Benjamin Essilfie Quansah](https://www.github.com/benessilfie/)
