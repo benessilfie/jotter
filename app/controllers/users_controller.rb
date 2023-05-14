@@ -7,21 +7,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-
-    if @user.save
-      render json: UserSerializer.new(@user).serializable_hash, status: :created
-    else
-      render json: { errors: @user.errors.full_messages }, status: :bad_request
-    end
+    @user = UserCreator.call(user_params)
+    render json: UserSerializer.new(@user).serializable_hash, status: :created
   end
 
   def update
-    if @user.update(user_params)
-      render json: UserSerializer.new(@user).serializable_hash, status: :ok
-    else
-      render json: { errors: @user.errors.full_messages }, status: :bad_request
-    end
+    UserUpdater.call(@user, user_params)
+    render json: UserSerializer.new(@user).serializable_hash, status: :ok
   end
 
   def destroy
@@ -33,7 +25,7 @@ class UsersController < ApplicationController
 
     def user_params
       return params.permit(:email, :role) if action_name == "update"
-      params.permit(:email, :password, :password_confirmation, :role)
+      params.permit(:email, :password, :role)
     end
 
     def set_user

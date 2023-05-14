@@ -7,11 +7,8 @@ module Mutations
 
     def execute(email: nil, role: nil)
       user = context[:current_user]
+      UserUpdater.call(user, email: email, role: role)
 
-      user.update!(
-        email: email || user.email,
-        role: role || user.role
-      )
       { user: user }
     end
   end

@@ -11,12 +11,7 @@ module Mutations
       note = Note.find(id)
       authorize(note)
 
-      note.update!(
-        title: title || note.title,
-        content: content || note.content,
-        published: published || note.published
-      )
-
+      NoteUpdater.call(note, title: title, content: content, published: published)
       { note: note }
     end
   end

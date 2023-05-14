@@ -7,7 +7,7 @@ module Mutations
     field :user, Types::UserType, null: true
 
     def execute(email:, password:, role:)
-      user = User.create!(email: email, password: password, role: role)
+      user = UserCreator.call(email: email, password: password, role: role)
       { user: user }
     end
   end

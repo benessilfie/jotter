@@ -13,21 +13,13 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = current_user.notes.build(note_params)
-
-    if @note.save
-      render json: NoteSerializer.new(@note).serializable_hash, status: :created
-    else
-      render json: { errors: @note.errors.full_messages }, status: :bad_request
-    end
+    @note = NoteCreator.call(current_user, note_params)
+    render json: NoteSerializer.new(@note).serializable_hash, status: :created
   end
 
   def update
-    if @note.update(note_params)
-      render json: NoteSerializer.new(@note).serializable_hash, status: :ok
-    else
-      render json: { errors: @note.errors.full_messages }, status: :bad_request
-    end
+    NoteUpdater.call(@note, note_params)
+    render json: NoteSerializer.new(@note).serializable_hash, status: :ok
   end
 
   def destroy

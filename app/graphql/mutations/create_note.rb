@@ -8,7 +8,7 @@ module Mutations
 
     def execute(title:, content:, published:)
       user = context[:current_user]
-      note = user.notes.create!(title: title, content: content, published: published)
+      note = NoteCreator.call(user, title: title, content: content, published: published)
 
       { note: note }
     end
