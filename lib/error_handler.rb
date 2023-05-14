@@ -5,6 +5,8 @@ module ErrorHandler
       render json: { error: error.message }, status: :bad_request
     when ActiveRecord::RecordNotFound
       render json: { error: error.message }, status: :not_found
+    when ActiveRecord::RecordInvalid
+      render json: { error: error.message }, status: :bad_request
     when JWT::VerificationError
       render json: { error: "Invalid token" }, status: :unauthorized
     when JWT::ExpiredSignature
