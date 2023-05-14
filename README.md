@@ -109,7 +109,6 @@ The REST API follows a traditional RESTful architecture and uses HTTP verbs to i
 {
   "email": "string",
   "password": "string",
-  "password confirmation": "string",
   "role": "string"
 }
 ```
