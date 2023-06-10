@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  auth_token      :string
+#  email           :string
+#  password_digest :string
+#  role            :integer          default("member")
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
 class User < ApplicationRecord
   has_secure_password
   has_many :notes, dependent: :destroy
