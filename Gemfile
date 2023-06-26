@@ -5,14 +5,15 @@ ruby "3.2.1"
 
 gem "bcrypt"
 gem "bootsnap", require: false
+gem "dotenv-rails"
 gem "email_address"
 gem "fast_jsonapi"
 gem "graphql"
 gem "jwt"
+gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 gem "rack-cors"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
-gem "sqlite3", "~> 1.4"
 
 group :development, :test do
   gem "byebug", platforms: %i[mri mingw x64_mingw]

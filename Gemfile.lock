@@ -84,6 +84,10 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     e2mmap (0.1.0)
     email_address (0.2.4)
       simpleidn
@@ -140,6 +144,7 @@ GEM
     parallel (1.23.0)
     parser (3.2.2.1)
       ast (~> 2.4.1)
+    pg (1.4.6)
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.2)
@@ -233,7 +238,6 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    sqlite3 (1.6.2-x86_64-linux)
     thor (1.2.1)
     tilt (2.1.0)
     timeout (0.3.2)
@@ -258,19 +262,20 @@ DEPENDENCIES
   bootsnap
   byebug
   debug
+  dotenv-rails
   email_address
   factory_bot_rails
   faker
   fast_jsonapi
   graphql
   jwt
+  pg (~> 1.1)
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.4, >= 7.0.4.3)
   rspec-rails
   shoulda-matchers
   solargraph
-  sqlite3 (~> 1.4)
 
 RUBY VERSION
    ruby 3.2.1p31
